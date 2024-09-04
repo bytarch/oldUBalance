@@ -35,10 +35,17 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
-## Additional Libraries & Information 
+## Additional Libraries 
 
  - [ShadCN](https://ui.shadcn.com/) a easy to use UI Library that supports Tailwind CSS and Typescript out of the box.
 
  - [Supabase](https://supabase.com/) a reliable open source [Firebase](https://firebase.google.com/) alternative.
 
 
+## Additional Information
+
+- Since `Web Design` and `Overall Development` for a project of this scale would take a while, I decided to use those libraries. They both are a reliable, easy to use and implement into your codebase without breaking anything in this repo. For more information read the additional libraries and the documentation of the given Libraries.
+
+- The lead developer and the project manager will check this repo regularly in order to verify any merge cases and errors that might arise during the developmental cycle.
+
+  
