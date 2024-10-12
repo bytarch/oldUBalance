@@ -1,4 +1,25 @@
+## Official Published Version
 
+ [https://ubalance.vercel.app/](https://ubalance.vercel.app/)
+
+## Test Logins
+ - Admin Account Login
+```bash
+email: admin1@example.com
+password: password123
+```
+ - Visitor Account Login
+```bash
+email: john.doe@example.com
+password: rUom
+```
+
+The visitor account logins is optional, since [https://ubalance.vercel.app/signup](https://ubalance.vercel.app/signup) is working.
+
+## Coming Soon
+ - Analytics
+ - Visitee/Residence Dashboard
+ - Security Guard Dashboard
 
 ## Getting Started
 
@@ -14,11 +35,8 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3003](http://localhost:3003) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
 ## Learn More
 
