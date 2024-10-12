@@ -32,7 +32,7 @@ export default function LoginForm() {
             const session = await response.json();
 
             // Role-based redirection
-     /* switch (session.role) {
+     switch (session.role) {
         case "admin":
           router.push("/admin/dashboard");
           break;
@@ -49,7 +49,7 @@ export default function LoginForm() {
           setError("Unknown role, please contact support.");
           break;
         
-      }  */
+      }  
         } catch (error) {
             console.error('Error during authentication:', error);
             

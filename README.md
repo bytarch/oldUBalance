@@ -5,13 +5,13 @@
 ## Test Logins
  - Admin Account Login
 ```bash
-admin1@example.com
-password123
+email: admin1@example.com
+password: password123
 ```
  - Visitor Account Login
 ```bash
-john.doe@example.com
-rUom
+email: john.doe@example.com
+password: rUom
 ```
 
 The visitor account logins is optional, since [https://ubalance.vercel.app/signup](https://ubalance.vercel.app/signup) is working.
@@ -20,7 +20,7 @@ The visitor account logins is optional, since [https://ubalance.vercel.app/signu
  - Analytics
  - Visitee/Residence Dashboard
  - Security Guard Dashboard
- 
+
 ## Getting Started
 
 First, run the development server:
