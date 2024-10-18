@@ -2,20 +2,15 @@
 
 ## Supported Versions
 
-Use this section to tell people about which versions of your project are
-currently being supported with security updates.
+The following versions of UBalance are actively supported with security updates:
 
 | Version | Supported          |
 | ------- | ------------------ |
-| 5.1.x   | :white_check_mark: |
+| 5.1.x   | :white_check_mark:  |
 | 5.0.x   | :x:                |
-| 4.0.x   | :white_check_mark: |
+| 4.0.x   | :white_check_mark:  |
 | < 4.0   | :x:                |
 
 ## Reporting a Vulnerability
 
-Use this section to tell people how to report a vulnerability.
-
-Tell them where to go, how often they can expect to get an update on a
-reported vulnerability, what to expect if the vulnerability is accepted or
-declined, etc.
+If you discover a security vulnerability, please [create an issue](https://github.com/jimboo420/UBalance/issues) in our GitHub repository with the details. We will review and address it as soon as possible.
