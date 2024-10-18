@@ -1,6 +1,6 @@
 import supabase from '@/supabase';
-import { authenticate } from '@/middleware/authenticate'; // Adjust the path as necessary
-import QRCode from 'qrcode'; // Import the QR code library
+import { authenticate } from '@/middleware/authenticate';
+import { QRBuffer } from '@bytarch/qrcode'; 
 import { v4 as uuidv4 } from 'uuid'; // For generating unique filenames
 
 // Function to generate a random integer appointment ID
@@ -9,30 +9,26 @@ const generateUniqueAppointmentId = async () => {
   let isUnique = false;
 
   while (!isUnique) {
-    // Generate a random integer between 1 and 999999 (adjust range as needed)
     uniqueId = Math.floor(Math.random() * 999999) + 1;
 
-    // Check if the ID already exists in the appointments table
     const { data, error } = await supabase
       .from('appointments')
       .select('appointment_id')
       .eq('appointment_id', uniqueId);
 
-    // If there's an error or no data returned, the ID is unique
     if (!error && data.length === 0) {
-      isUnique = true; // Found a unique ID
+      isUnique = true;
     }
   }
   
   return uniqueId;
 };
+
 export default async function handler(req, res) {
-  // Apply the authentication middleware
   await authenticate(req, res, async () => {
-    const { role, id: userId } = req.user; // Assuming `id` is part of req.user
+    const { role, id: userId } = req.user;
 
     if (req.method === 'GET') {
-      // Handle GET requests
       if (role === 'visitors') {
         const { data, error } = await supabase
           .from('appointments')
@@ -105,9 +101,7 @@ export default async function handler(req, res) {
       return res.status(403).json({ error: 'Forbidden: Insufficient permissions.' });
 
     } else if (req.method === 'POST') {
-      // Create a new appointment
-      // Generate a random ID for the appointment
-      const appointment_id = await generateUniqueAppointmentId(); // Await the function here
+      const appointment_id = await generateUniqueAppointmentId();
       const {
         visitee_id,
         visitor_id,
@@ -115,68 +109,60 @@ export default async function handler(req, res) {
         valid_from = appointment_date,
         valid_until = new Date(new Date(valid_from).getTime() + 60 * 60 * 1000),
         status = 'pending'
-      } = req.body; // Set default values
-    
-      // Create the data as a JSON object
+      } = req.body;
+
       const qrCodeDataObject = {
         appointment: {
           appointment_id,
-          visitor_id: visitor_id,
-          visitee_id: visitee_id,
-          appointment_date: appointment_date,
+          visitor_id,
+          visitee_id,
+          appointment_date,
           valid_from,
           valid_until,
           status,
         }
       };
-    
-      // Convert the object to a JSON string
+
       const qrCodeData = JSON.stringify(qrCodeDataObject);
-    
-      // Generate QR code as a PNG image
-      const qrCodeBuffer = await QRCode.toBuffer(qrCodeData, { type: 'png' });
-    
-      // Generate a unique filename for the QR code
+
+      // Use QRBuffer from @bytarch/qrcode to generate QR code
+      const qrCodeBuffer = await QRBuffer(qrCodeData);
+
       const qrCodeFileName = `qr_codes/${uuidv4()}.png`;
-    
-      // Log user details for debugging
+
       console.log('User role:', role);
       console.log('User ID:', userId);
-    
-      // Upload the QR code image to Supabase storage
+
       const { data: uploadData, error: uploadError } = await supabase
         .storage
-        .from('gated_community_tracker') // Replace with your actual bucket name
+        .from('gated_community_tracker')
         .upload(qrCodeFileName, qrCodeBuffer, {
           contentType: 'image/png',
-          upsert: true // Overwrite if the file already exists
+          upsert: true
         });
-    
+
       if (uploadError) {
         console.error('Error uploading QR code:', uploadError);
         return res.status(500).json({ error: uploadError.message });
       }
-    
-      // Construct the public URL for the uploaded QR code
+
       const qrCodeUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/gated_community_tracker/${qrCodeFileName}`;
-    
-      // Insert the appointment into the database with the QR code URL
+
       const { data, error } = await supabase
         .from('appointments')
         .insert([{
-          appointment_id, // Use the generated appointment_id here
+          appointment_id,
           visitee_id,
           visitor_id,
           appointment_date,
-          qr_code: qrCodeUrl, // Store the URL of the QR code
-          valid_from, // Optional field
-          valid_until, // Optional field
-          status, // Optional field
+          qr_code: qrCodeUrl,
+          valid_from,
+          valid_until,
+          status,
         }]);
-    
-      // Log the raw data and error for debugging
+
       console.log('Insert data:', {
-        appointment_id, // Log the generated appointment_id
+        appointment_id,
         visitee_id,
         visitor_id,
         appointment_date,
@@ -185,19 +171,16 @@ export default async function handler(req, res) {
         valid_until,
         status,
       });
+
       console.log('Insert response:', { data, error });
-    
-      // Check for errors after the insert
+
       if (error) {
         console.error('Error creating appointment:', error);
-        return res.status(500).json({ error: error.message }); // Return error message
+        return res.status(500).json({ error: error.message });
       }
-    
+
       return res.status(201).json({ success: true });
-    }
-    
-     else {
-      // If the request method is not allowed
+    } else {
       res.setHeader('Allow', ['GET', 'POST']);
       return res.status(405).json({ error: `Method ${req.method} Not Allowed` });
     }
