@@ -38,6 +38,8 @@ Open [http://localhost:3003](http://localhost:3003) with your browser to see the
 
 ## Deploy UBalance with Vercel
 Easily deploy the UBalance project on Vercel with just one click. Click the button below to get started:
+
+
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/jimboo420/UBalance)
 
 
