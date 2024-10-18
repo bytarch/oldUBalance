@@ -158,7 +158,7 @@ export default async function handler(req, res) {
       }
     
       // Construct the public URL for the uploaded QR code
-      const qrCodeUrl = `https://djsqtktjxnwkgmaqwhpe.supabase.co/storage/v1/object/public/gated_community_tracker/${qrCodeFileName}`;
+      const qrCodeUrl = `${process.env.SUPABASE_URL}/storage/v1/object/public/gated_community_tracker/${qrCodeFileName}`;
     
       // Insert the appointment into the database with the QR code URL
       const { data, error } = await supabase
