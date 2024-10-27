@@ -138,13 +138,12 @@ export default function LoginForm() {
           <div className="grid gap-2">
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
-              <Button
-                onClick={() => alert("Coming Soon")}
-                variant="ghost"
+              <p
+             
                 className="ml-auto inline-block text-sm underline"
               >
                 Forgot your password?
-              </Button>
+              </p> 
             </div>
             <Input
               id="password"
