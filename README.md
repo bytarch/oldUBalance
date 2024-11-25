@@ -1,4 +1,6 @@
-# UBalance
+# The Official Repo for Ubalance (GatedCommunity Tracker)
+- This repo reused existing code from [BytArch Official Website](https://bytarch.netlify.app)—a platform for your academic needs. BytArch provides tools and solutions to make academic and business tasks easier and more efficient.
+## UBalance
 
 
 ## Official Published Demo Version
@@ -56,4 +58,10 @@ Easily deploy the UBalance project on Vercel with just one click. Click the butt
 
 - The lead developer and the project manager will check this repo regularly in order to verify any merge cases and errors that might arise during the developmental cycle.
 
-  
+
+
+Executed on behalf of BytArch by:
+
+[Jkelly]
+[Joshua Kelly]
+[Date: August 21st, 2024]
